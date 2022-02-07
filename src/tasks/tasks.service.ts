@@ -62,7 +62,8 @@ export class TasksService {
   }
  
   deleteTask(id: string): void {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    const found = this.getTaskById(id)
+    this.tasks = this.tasks.filter((task) => task.id !== found.id); // delete task by id with pipes **gettaskbyid contain the exception
   }
 
   updateTaskStatus(id: string, status: TaskStatus) {
