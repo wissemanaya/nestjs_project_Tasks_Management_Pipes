@@ -14,10 +14,10 @@ Nest comes with a number of built-in pipes that you can use out-of-the-box. You 
 ******************
 ********************
 ************************
-this project contain : creat task with empty body (title and description).
-                       get task by id don't exist .
-                       update task by id dont exist or with status not defined in rnul status.
-                       delete task by id don'exist .
+this project contain : creat task with empty body (title and description) ***
+                       get task by id don't exist ***
+                       update task by id dont exist or with status not defined in rnul status ***
+                       delete task by id don'exist ***
 
 ## Installation
 
