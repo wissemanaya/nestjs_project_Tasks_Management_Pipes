@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -18,7 +18,7 @@ export class TasksService {
     let tasks = this.getAllTasks();
     // do something with status
     if (status) {
-      tasks = tasks.filter((task) => task.status === status);
+      tasks  = tasks.filter((task) => task.status === status);
     }
 
     if (search) {
@@ -34,8 +34,17 @@ export class TasksService {
     return tasks;
   }*/
 
-  getTaskById(id: string): Task {
-    return this.tasks.find((task) => task.id === id);
+  getTaskById(id: string): Task {     // verify if ther is a task with similar id with pipes 
+    /* with pipes it works like this
+    1.try to get task 
+    2.if not found , throw an eerror (404 not found)
+    3.otherwise, return the found task */
+
+    const found =  this.tasks.find((task) => task.id === id);
+    if (!found){
+      throw new NotFoundException (`task with ID"${id}not found`) ;
+    }
+    return found ;
   }
 
   createTask(createTaskDto: CreateTaskDto): Task {
@@ -57,7 +66,7 @@ export class TasksService {
   }
 
   updateTaskStatus(id: string, status: TaskStatus) {
-    const task = this.getTaskById(id);
+    const task = this.getTaskById(id);  // when we call meth gettaskbyid we call pipes handling in that methode too
     task.status = status;
     return task;
   }
